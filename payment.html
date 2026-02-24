@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enroll | Codex Elite Program by Futurelab Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <header class="hero wrap compact">
+    <nav class="top-nav">
+      <a class="brand" href="index.html">Futurelab Studios</a>
+      <div class="nav-links">
+        <a href="index.html">Course</a>
+        <a href="promo.html">Promo Kit</a>
+      </div>
+    </nav>
+
+    <div class="hero-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Enrollment + Checkout</p>
+        <h1>Join The Codex Elite Program</h1>
+        <p class="lead">
+          Upgrade from random prompting to measurable elite execution. This payment page is built for quick launch,
+          clear plan selection, and immediate onboarding.
+        </p>
+        <p class="hero-brandline">Designed by <strong>Futurelab Studios</strong></p>
+      </div>
+      <aside class="hero-side panel">
+        <h2>What You Get</h2>
+        <ul>
+          <li>Full 8-week mastery curriculum</li>
+          <li>Gamified progression system and checkpoints</li>
+          <li>Prompt stacks, KPI scorecards, and operator playbooks</li>
+          <li>Capstone framework to prove elite skill level</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Pick Your Access Plan</h2>
+      <p class="module-hint">Checkout buttons support Stripe and PayPal links configured in <code>payment.js</code>.</p>
+
+      <div class="pricing-grid">
+        <article class="price-card">
+          <p class="card-tag">Starter</p>
+          <h3>Self-Serve Mastery</h3>
+          <p class="price">$149 <span>one-time</span></p>
+          <ul>
+            <li>Full course content + gamification platform</li>
+            <li>Prompt libraries and templates</li>
+            <li>Personal progress export and scorecards</li>
+          </ul>
+          <button class="btn checkout-btn" data-plan="starter" data-provider="stripe" type="button">Pay with Stripe</button>
+          <button class="btn btn-ghost checkout-btn" data-plan="starter" data-provider="paypal" type="button">Pay with PayPal</button>
+        </article>
+
+        <article class="price-card featured">
+          <p class="card-tag">Pro</p>
+          <h3>Elite Operator Track</h3>
+          <p class="price">$399 <span>one-time</span></p>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Advanced operator playbooks + migration guides</li>
+            <li>Premium ad/promo and monetization kit</li>
+          </ul>
+          <button class="btn checkout-btn" data-plan="pro" data-provider="stripe" type="button">Pay with Stripe</button>
+          <button class="btn btn-ghost checkout-btn" data-plan="pro" data-provider="paypal" type="button">Pay with PayPal</button>
+        </article>
+
+        <article class="price-card">
+          <p class="card-tag">Team</p>
+          <h3>Studio License</h3>
+          <p class="price">$1,499 <span>up to 10 seats</span></p>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Team onboarding and rollout checklist</li>
+            <li>Internal KPI and execution governance templates</li>
+          </ul>
+          <button class="btn checkout-btn" data-plan="team" data-provider="stripe" type="button">Pay with Stripe</button>
+          <button class="btn btn-ghost checkout-btn" data-plan="team" data-provider="paypal" type="button">Pay with PayPal</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Payment Integration Setup</h2>
+      <p>To activate real checkout, update URLs in <code>payment.js</code> with your live Stripe Payment Links and PayPal links.</p>
+      <pre><code>const PAYMENT_CONFIG = {
+  stripe: {
+    starter: "https://buy.stripe.com/REPLACE_ME_STARTER",
+    pro: "https://buy.stripe.com/REPLACE_ME_PRO",
+    team: "https://buy.stripe.com/REPLACE_ME_TEAM"
+  },
+  paypal: {
+    starter: "https://paypal.me/REPLACE_ME_STARTER",
+    pro: "https://paypal.me/REPLACE_ME_PRO",
+    team: "https://paypal.me/REPLACE_ME_TEAM"
+  }
+};</code></pre>
+      <p id="paymentStatus" class="metric-sub"></p>
+    </section>
+
+    <section class="panel advert-panel">
+      <h2>Conversion Boosters</h2>
+      <div class="ad-points">
+        <article>
+          <h3>Urgency Offer</h3>
+          <p>Launch with a limited-time founder price and deadline banner for stronger first-week conversions.</p>
+        </article>
+        <article>
+          <h3>Trust Layer</h3>
+          <p>Use transparent deliverables, checkpoints, and evidence-based outcomes to reduce checkout hesitation.</p>
+        </article>
+        <article>
+          <h3>Promotion Assets</h3>
+          <p>Use the built-in promo kit page for ad copy, social captions, and campaign ideas.</p>
+        </article>
+      </div>
+      <div class="hero-cta-row">
+        <a class="btn" href="promo.html">Open Promo Kit</a>
+        <a class="btn btn-ghost" href="index.html">Back to Course</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>Checkout system by Futurelab Studios • Codex Elite Program • 2026</p>
+  </footer>
+
+  <script src="payment.js"></script>
+</body>
+</html>
