@@ -17,88 +17,74 @@
     <nav class="top-nav">
       <a class="brand" href="index.html">Futurelab Studios</a>
       <div class="nav-links">
-        <a href="#masteryDashboard">Dashboard</a>
+        <a href="#dashboard">Dashboard</a>
         <a href="payment.html">Enroll</a>
-        <a href="promo.html">Promo Kit</a>
+        <a href="promo.html">Promo</a>
       </div>
     </nav>
 
     <div class="hero-shell">
       <div class="hero-copy">
-        <p class="eyebrow">Codex Top 0.01% Track</p>
-        <h1>OpenAI Codex Elite Tutorial Platform</h1>
+        <p class="eyebrow">Codex Elite Learning System</p>
+        <h1>A Lean, Beautiful, AI-Native Path To Codex Mastery</h1>
         <p class="lead">
-          A complete execution system to make you an elite Codex operator. Every module is interactive,
-          progressive, and benchmarked with real performance gates.
+          Designed for serious builders: clear modules, measurable progress, and an embedded AI coach that helps you
+          decide what to do next with precision.
         </p>
         <p class="hero-brandline">Designed by <strong>Futurelab Studios</strong></p>
-
         <div class="hero-cta-row">
-          <button id="startTrackBtn" class="btn" type="button">Start Mastery Track</button>
-          <a class="btn btn-ghost" href="payment.html">Get Premium Access</a>
-        </div>
-
-        <div class="hero-statline">
-          <article>
-            <p>Operator Rank</p>
-            <h3 id="heroRank">Initiate</h3>
-          </article>
-          <article>
-            <p>Total XP</p>
-            <h3 id="heroXp">0</h3>
-          </article>
-          <article>
-            <p>Current Streak</p>
-            <h3 id="heroStreak">0 days</h3>
-          </article>
+          <button id="startTrackBtn" class="btn" type="button">Start Learning</button>
+          <a class="btn btn-ghost" href="payment.html">Unlock Premium</a>
         </div>
       </div>
 
-      <aside class="hero-side panel">
-        <h2>Elite Sprint Protocol</h2>
-        <p class="module-hint">This platform is structured as a competitive training ladder, not a static tutorial.</p>
-        <ul>
-          <li>6 progressive modules with lock/unlock gates</li>
-          <li>XP, streak, and badge system for daily momentum</li>
-          <li>Detailed drills, artifacts, and checkpoint standards</li>
-          <li>Production-grade prompt stacks for real repos</li>
-        </ul>
-        <a class="btn" href="payment.html">Activate Full Program</a>
+      <aside class="panel hero-side">
+        <h2>Live Progress</h2>
+        <div class="hero-statline">
+          <article>
+            <p>Rank</p>
+            <h3 id="heroRank">Initiate</h3>
+          </article>
+          <article>
+            <p>XP</p>
+            <h3 id="heroXp">0</h3>
+          </article>
+          <article>
+            <p>Streak</p>
+            <h3 id="heroStreak">0 days</h3>
+          </article>
+        </div>
       </aside>
     </div>
   </header>
 
   <main class="wrap">
-    <section id="masteryDashboard" class="panel dashboard">
+    <section id="dashboard" class="panel dashboard compact-dashboard">
       <div class="dashboard-header">
         <h2>Mastery Dashboard</h2>
         <div class="dashboard-actions">
-          <button id="exportProgressBtn" class="btn btn-ghost" type="button">Export Progress JSON</button>
-          <button id="resetProgressBtn" class="btn btn-danger" type="button">Reset Progress</button>
+          <button id="dailyCheckInBtn" class="btn btn-ghost" type="button">Daily Check-in (+40 XP)</button>
+          <button id="exportProgressBtn" class="btn btn-ghost" type="button">Export Progress</button>
+          <button id="resetProgressBtn" class="btn btn-danger" type="button">Reset</button>
         </div>
       </div>
 
       <div class="dashboard-grid">
         <article class="metric-card">
-          <p class="metric-label">Overall Completion</p>
+          <p class="metric-label">Completion</p>
           <p id="overallPercent" class="metric-value">0%</p>
           <div class="meter"><span id="overallBar"></span></div>
-        </article>
-
-        <article class="metric-card">
-          <p class="metric-label">Modules Completed</p>
-          <p id="modulesDone" class="metric-value">0 / 6</p>
-          <p class="metric-sub">A module counts only at 100% checklist completion.</p>
+          <p id="modulesDone" class="metric-sub">0 / 6 modules complete</p>
         </article>
 
         <article class="metric-card">
           <p class="metric-label">Current Focus</p>
           <p id="currentFocus" class="metric-value small">Level 1</p>
-          <p id="nextRequirement" class="metric-sub">Complete all Level 1 tasks to unlock Level 2.</p>
+          <p id="nextRequirement" class="metric-sub">Complete Level 1 to unlock Level 2.</p>
         </article>
 
         <article class="metric-card">
-          <p class="metric-label">XP + Rank</p>
+          <p class="metric-label">Rank + XP</p>
           <p id="xpValue" class="metric-value">0 XP</p>
           <p id="rankName" class="metric-sub">Rank: Initiate</p>
           <div class="meter"><span id="rankBar"></span></div>
@@ -106,98 +92,108 @@
         </article>
 
         <article class="metric-card">
-          <p class="metric-label">Streak Engine</p>
+          <p class="metric-label">Streak</p>
           <p id="streakDays" class="metric-value">0 days</p>
           <p id="longestStreak" class="metric-sub">Longest: 0 days</p>
-          <button id="dailyCheckInBtn" class="btn btn-ghost" type="button">Daily Check-in (+40 XP)</button>
-          <p id="dailyCheckInStatus" class="metric-sub">Check in today to keep your streak alive.</p>
+          <p id="dailyCheckInStatus" class="metric-sub">Check in today to keep momentum.</p>
         </article>
 
         <article class="metric-card">
-          <p class="metric-label">Badges Unlocked</p>
-          <p id="badgeCount" class="metric-value">0 / 8</p>
+          <p class="metric-label">Achievements</p>
+          <p id="badgeCount" class="metric-value">0 / 9</p>
           <p id="badgePreview" class="metric-sub">No badges yet</p>
         </article>
       </div>
+
+      <details class="minimal-details">
+        <summary>Show Challenge Board</summary>
+        <div class="gamification-grid">
+          <article>
+            <h3>Weekly Challenges</h3>
+            <div id="challengeList" class="challenge-list"></div>
+          </article>
+          <article>
+            <h3>Achievement Board</h3>
+            <div id="achievementsGrid" class="achievement-grid"></div>
+          </article>
+        </div>
+      </details>
     </section>
 
-    <section class="panel gamification-panel">
-      <h2>Gamification Arena</h2>
-      <div class="gamification-grid">
-        <article>
-          <h3>Weekly Challenges</h3>
-          <div id="challengeList" class="challenge-list"></div>
-        </article>
-        <article>
-          <h3>Achievement Board</h3>
-          <div id="achievementsGrid" class="achievement-grid"></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="mastery-lab">
+    <section class="learning-layout">
       <aside class="panel module-sidebar">
         <h2>Modules</h2>
-        <p class="module-hint">Complete levels in sequence. Locked modules unlock automatically.</p>
+        <p class="module-hint">Progressive unlock sequence. Complete each level fully.</p>
         <div id="moduleList" class="module-list"></div>
+
+        <div class="timer-box">
+          <p class="metric-label">90-Min Sprint</p>
+          <p id="timerDisplay" class="timer-display">90:00</p>
+          <div class="timer-controls">
+            <button id="startTimerBtn" class="btn" type="button">Start</button>
+            <button id="pauseTimerBtn" class="btn btn-ghost" type="button">Pause</button>
+            <button id="resetTimerBtn" class="btn btn-ghost" type="button">Reset</button>
+          </div>
+        </div>
       </aside>
 
-      <section class="panel module-detail">
-        <div id="moduleContent"></div>
-      </section>
-    </section>
+      <div class="learning-main">
+        <section class="panel module-detail">
+          <div id="moduleContent"></div>
+        </section>
 
-    <section class="panel timer-panel">
-      <h2>90-Minute Daily Sprint Timer</h2>
-      <p class="timer-help">Use this protocol: 20 min micro reps, 40 min build, 20 min review, 10 min journal.</p>
-      <div class="timer-box">
-        <p id="timerDisplay" class="timer-display">90:00</p>
-        <div class="timer-controls">
-          <button id="startTimerBtn" class="btn" type="button">Start</button>
-          <button id="pauseTimerBtn" class="btn btn-ghost" type="button">Pause</button>
-          <button id="resetTimerBtn" class="btn btn-ghost" type="button">Reset</button>
-        </div>
+        <section class="panel ai-coach-panel">
+          <div class="section-head">
+            <h2>AI Coach</h2>
+            <p>Smart guidance from your current module progress, notes, and goals.</p>
+          </div>
+
+          <div class="ai-controls">
+            <label>
+              Action
+              <select id="aiAction">
+                <option value="daily_plan">Build Today’s Plan</option>
+                <option value="explain_module">Explain Current Module</option>
+                <option value="improve_prompt">Improve My Prompt</option>
+                <option value="review_notes">Review My Notes</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="ai-chips">
+            <button class="chip-btn" data-ai-action="daily_plan" type="button">Plan My Next 90 Minutes</button>
+            <button class="chip-btn" data-ai-action="improve_prompt" type="button">Upgrade My Prompt</button>
+            <button class="chip-btn" data-ai-action="review_notes" type="button">Analyze My Notes</button>
+          </div>
+
+          <label class="ai-input-wrap" for="aiInput">Context or question</label>
+          <textarea
+            id="aiInput"
+            rows="5"
+            placeholder="Example: I keep getting broad changes and weak tests. Give me a tighter prompt and review checklist for this module."
+          ></textarea>
+
+          <div class="hero-cta-row">
+            <button id="aiRunBtn" class="btn" type="button">Generate Guidance</button>
+            <button id="aiClearBtn" class="btn btn-ghost" type="button">Clear</button>
+          </div>
+
+          <pre id="aiOutput" class="ai-output">AI coach output will appear here.</pre>
+        </section>
       </div>
     </section>
 
-    <section class="panel advert-panel">
-      <h2>Why This Course Wins</h2>
-      <p>
-        This system is designed by <strong>Futurelab Studios</strong> for operators who want measurable advantage,
-        not generic AI tips.
-      </p>
-      <div class="ad-points">
-        <article>
-          <h3>Real-World Execution</h3>
-          <p>Train directly on production-style workflows: bug fixes, reviews, feature sprints, and migrations.</p>
-        </article>
-        <article>
-          <h3>Competitive Progression</h3>
-          <p>XP ranks, challenge loops, and streak systems keep momentum high and skill growth visible.</p>
-        </article>
-        <article>
-          <h3>Monetizable Skill Stack</h3>
-          <p>Build a portfolio-ready Codex operating manual you can use in freelance, startup, or team leadership work.</p>
-        </article>
-      </div>
-      <div class="hero-cta-row">
-        <a class="btn" href="payment.html">Enroll Now</a>
-        <a class="btn btn-ghost" href="promo.html">Launch Promo Campaign</a>
-      </div>
-    </section>
-
-    <section class="panel">
+    <section class="panel minimal-footer-panel">
       <h2>Resource Pack</h2>
       <ul>
         <li>Daily log template: <code>codex_journal_template.md</code></li>
         <li>Weekly KPI scorecard: <code>codex_weekly_scorecard.md</code></li>
       </ul>
-      <p>Use these every day. Top-tier usage comes from systems and tracking, not random prompting.</p>
     </section>
   </main>
 
   <footer class="site-footer wrap">
-    <p>Codex Elite Tutorial Platform • Designed by Futurelab Studios • 2026</p>
+    <p>Codex Elite Platform • Designed by Futurelab Studios • 2026</p>
   </footer>
 
   <script src="app.js"></script>

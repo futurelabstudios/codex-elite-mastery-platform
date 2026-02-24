@@ -1351,6 +1351,17 @@ function checkpointMarkup(checkpoint) {
   `;
 }
 
+function accordionMarkup(title, content, isOpen = false) {
+  return `
+    <details class="module-accordion" ${isOpen ? "open" : ""}>
+      <summary>${escapeHtml(title)}</summary>
+      <div class="module-accordion-content">
+        ${content}
+      </div>
+    </details>
+  `;
+}
+
 function renderModuleContent() {
   const module = selectedModule();
   const progress = moduleProgress(module);
@@ -1369,55 +1380,16 @@ function renderModuleContent() {
     </header>
 
     <section class="module-section">
-      <h3>Core Outcomes</h3>
-      ${listMarkup(module.outcomes)}
-    </section>
-
-    <section class="module-section">
-      <h3>5-Day Execution Plan</h3>
-      ${weeklyPlanMarkup(module.weeklyPlan)}
-    </section>
-
-    <section class="module-section">
-      <h3>Mission Checklist (Functional)</h3>
-      <p class="module-note">Check tasks as you complete them. Progress is saved automatically.</p>
-      ${taskMarkup(module)}
-    </section>
-
-    <section class="module-section">
-      <h3>Deliberate Drills</h3>
-      ${listMarkup(module.drills)}
-    </section>
-
-    <section class="module-section">
-      <h3>Anti-Patterns To Eliminate</h3>
-      ${listMarkup(module.antiPatterns)}
-    </section>
-
-    <section class="module-section">
-      <h3>Required Artifacts</h3>
-      ${listMarkup(module.artifacts)}
-    </section>
-
-    <section class="module-section">
-      <h3>Prompt Stack</h3>
-      ${promptMarkup(module)}
-    </section>
-
-    <section class="module-section">
-      <h3>Performance Scorecard</h3>
-      ${scorecardMarkup(module.scorecard)}
-    </section>
-
-    <section class="module-section">
-      <h3>Checkpoint Gate</h3>
-      ${checkpointMarkup(module.checkpoint)}
-    </section>
-
-    <section class="module-section">
-      <h3>Module Notes</h3>
-      <p class="module-note">Use this for insights, mistakes, and prompt revisions for this level.</p>
-      <textarea id="moduleNotes" class="module-notes" rows="8" placeholder="Capture what worked, where Codex failed, and how you improved your requests.">${escapeHtml(notes)}</textarea>
+      ${accordionMarkup("Mission Checklist", `<p class="module-note">Check tasks as you complete them. Progress is saved automatically.</p>${taskMarkup(module)}`, true)}
+      ${accordionMarkup("5-Day Execution Plan", weeklyPlanMarkup(module.weeklyPlan), true)}
+      ${accordionMarkup("Core Outcomes", listMarkup(module.outcomes))}
+      ${accordionMarkup("Prompt Stack", promptMarkup(module))}
+      ${accordionMarkup("Deliberate Drills", listMarkup(module.drills))}
+      ${accordionMarkup("Anti-Patterns To Eliminate", listMarkup(module.antiPatterns))}
+      ${accordionMarkup("Required Artifacts", listMarkup(module.artifacts))}
+      ${accordionMarkup("Performance Scorecard", scorecardMarkup(module.scorecard))}
+      ${accordionMarkup("Checkpoint Gate", checkpointMarkup(module.checkpoint))}
+      ${accordionMarkup("Module Notes", `<p class="module-note">Use this for insights, mistakes, and prompt revisions for this level.</p><textarea id="moduleNotes" class="module-notes" rows="8" placeholder="Capture what worked, where Codex failed, and how you improved your requests.">${escapeHtml(notes)}</textarea>`, true)}
     </section>
   `;
 
@@ -1526,9 +1498,85 @@ function handleDailyCheckIn() {
 }
 
 function jumpToDashboard() {
-  const node = document.getElementById("masteryDashboard");
+  const node = document.getElementById("dashboard");
   if (!node) return;
   node.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function currentCoachPayload() {
+  const module = selectedModule();
+  const progress = moduleProgress(module);
+  const stats = allTaskStats();
+  const xp = computeXP();
+  return {
+    moduleId: module.id,
+    moduleLevel: module.level,
+    moduleTitle: module.title,
+    moduleSummary: module.summary,
+    moduleProgressPercent: progress.percent,
+    moduleTasksDone: progress.done,
+    moduleTasksTotal: progress.total,
+    notes: state.notes[module.id] || "",
+    streak: state.streak || 0,
+    overallCompletion: stats.percent,
+    modulesCompleted: modulesCompletedCount(),
+    totalXp: xp.total
+  };
+}
+
+function setAICoachOutput(text) {
+  const output = document.getElementById("aiOutput");
+  if (!output) return;
+  output.textContent = text;
+}
+
+async function runAICoach() {
+  const actionNode = document.getElementById("aiAction");
+  const inputNode = document.getElementById("aiInput");
+  const runButton = document.getElementById("aiRunBtn");
+  if (!actionNode || !inputNode || !runButton) return;
+
+  const action = actionNode.value || "daily_plan";
+  const userInput = inputNode.value.trim();
+  const payload = {
+    action,
+    userInput,
+    context: currentCoachPayload()
+  };
+
+  runButton.disabled = true;
+  setAICoachOutput("Thinking...");
+
+  try {
+    const response = await fetch("/.netlify/functions/ai-coach", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const message = data.error || "AI coach failed. Please try again.";
+      throw new Error(message);
+    }
+
+    setAICoachOutput(data.output || "No response from AI coach.");
+  } catch (error) {
+    const fallback =
+      "AI coach is unavailable right now. If running locally, use the Netlify URL for AI features.\n\n" +
+      `Details: ${error.message}`;
+    setAICoachOutput(fallback);
+  } finally {
+    runButton.disabled = false;
+  }
+}
+
+function clearAICoach() {
+  const inputNode = document.getElementById("aiInput");
+  if (inputNode) inputNode.value = "";
+  setAICoachOutput("AI coach output will appear here.");
 }
 
 function exportProgress() {
@@ -1588,6 +1636,28 @@ function wireStaticEvents() {
   document.getElementById("resetProgressBtn").addEventListener("click", resetProgress);
   document.getElementById("dailyCheckInBtn").addEventListener("click", handleDailyCheckIn);
   document.getElementById("startTrackBtn").addEventListener("click", jumpToDashboard);
+  document.getElementById("aiRunBtn").addEventListener("click", runAICoach);
+  document.getElementById("aiClearBtn").addEventListener("click", clearAICoach);
+
+  document.querySelectorAll("[data-ai-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.aiAction;
+      const actionNode = document.getElementById("aiAction");
+      if (!actionNode || !action) return;
+      actionNode.value = action;
+      runAICoach();
+    });
+  });
+
+  const aiInput = document.getElementById("aiInput");
+  if (aiInput) {
+    aiInput.addEventListener("keydown", (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+        event.preventDefault();
+        runAICoach();
+      }
+    });
+  }
 }
 
 function ensureSelectedModuleIsValid() {
