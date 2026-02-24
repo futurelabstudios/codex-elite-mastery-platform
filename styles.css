@@ -112,6 +112,13 @@ body::before {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  flex-wrap: wrap;
+}
+
 .nav-links {
   display: flex;
   gap: 0.72rem;
@@ -133,6 +140,39 @@ body::before {
 .nav-links a:hover {
   color: var(--gold-bright);
   border-color: rgba(214, 188, 133, 0.5);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  gap: 0.2rem;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.18rem;
+  background: rgba(8, 11, 16, 0.7);
+}
+
+.theme-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  color: var(--text);
+}
+
+.theme-btn.active {
+  background: rgba(214, 188, 133, 0.2);
+  border-color: rgba(214, 188, 133, 0.45);
+  color: var(--gold-bright);
 }
 
 .hero-shell {
@@ -849,6 +889,97 @@ select {
   letter-spacing: 0.06em;
 }
 
+:root[data-theme="light"] {
+  --bg: #f7f5ef;
+  --bg-soft: #ebe7dc;
+  --panel: rgba(255, 255, 255, 0.88);
+  --panel-strong: rgba(255, 255, 255, 0.95);
+  --text: #1c2430;
+  --muted: #556277;
+  --line: rgba(120, 96, 53, 0.2);
+  --line-strong: rgba(120, 96, 53, 0.34);
+  --gold: #a88747;
+  --gold-bright: #7f652f;
+  --mint: #4f8a81;
+}
+
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(168, 135, 71, 0.15), transparent 35%),
+    radial-gradient(circle at 85% -8%, rgba(79, 138, 129, 0.12), transparent 34%),
+    linear-gradient(160deg, #f9f7f1 0%, #ece8df 100%);
+}
+
+:root[data-theme="light"] body::before {
+  opacity: 0.12;
+}
+
+:root[data-theme="light"] .brand,
+:root[data-theme="light"] .theme-toggle,
+:root[data-theme="light"] .site-footer p {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+:root[data-theme="light"] .hero-copy,
+:root[data-theme="light"] .panel {
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(246, 242, 233, 0.95));
+}
+
+:root[data-theme="light"] .metric-card,
+:root[data-theme="light"] .hero-statline article,
+:root[data-theme="light"] .module-item,
+:root[data-theme="light"] .timer-box,
+:root[data-theme="light"] .task-list li,
+:root[data-theme="light"] .prompt,
+:root[data-theme="light"] .challenge-card,
+:root[data-theme="light"] .achievement-card,
+:root[data-theme="light"] .price-card,
+:root[data-theme="light"] .ad-points article,
+:root[data-theme="light"] .copy-card,
+:root[data-theme="light"] .module-accordion,
+:root[data-theme="light"] .week-card,
+:root[data-theme="light"] .checkpoint-grid article {
+  background: rgba(255, 255, 255, 0.86);
+}
+
+:root[data-theme="light"] pre,
+:root[data-theme="light"] .module-notes,
+:root[data-theme="light"] #aiInput,
+:root[data-theme="light"] select {
+  background: rgba(251, 248, 241, 0.98);
+  color: #2c3440;
+}
+
+:root[data-theme="light"] .btn {
+  color: #2a1f0c;
+  background: linear-gradient(180deg, #e9cf9d, #c89b54);
+}
+
+:root[data-theme="light"] .btn-ghost,
+:root[data-theme="light"] .btn-danger {
+  background: transparent;
+  color: #2f3947;
+}
+
+:root[data-theme="light"] .theme-btn.active {
+  background: rgba(168, 135, 71, 0.2);
+  border-color: rgba(168, 135, 71, 0.35);
+  color: #5f4a1f;
+}
+
+:root[data-theme="light"] .module-item.selected {
+  background: rgba(245, 238, 225, 0.88);
+}
+
+:root[data-theme="light"] .achievement-card.unlocked {
+  background: rgba(247, 241, 229, 0.92);
+}
+
+:root[data-theme="light"] .ai-output {
+  background: rgba(251, 248, 241, 0.98);
+}
+
 @media (max-width: 1100px) {
   .hero-shell,
   .learning-layout,
@@ -877,6 +1008,7 @@ select {
   }
 
   .top-nav,
+  .nav-right,
   .dashboard-header,
   .prompt-head {
     flex-direction: column;
